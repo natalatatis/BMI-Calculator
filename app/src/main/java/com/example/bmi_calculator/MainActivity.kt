@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
@@ -12,7 +13,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.input.KeyboardType
-//import androidx.compose.ui.text.input.
+//import androidx.compose.ui.text.input
+import androidx.compose.ui.graphics.Color
+
+//Color variables for each category
+val redColor = Color(0xFFFF1744) // red
+val orangeColor = Color(0xFFFF9100) // Orange
+val yellowColor = Color(0xFFFFEB3B) // Yellow
+val greenColor = Color(0xFF4CAF50) // Green
+
 
 
 class MainActivity : ComponentActivity() {
@@ -93,21 +102,32 @@ fun BMIScreen(){
                 if(errorMessage!=null){
                     Text(errorMessage!!, color = MaterialTheme.colorScheme.error)
                 }
-
                 val bmi = bmiResult?.toFloatOrNull()
-                //display BMI result
-                if(bmi!=null) {
-                    Text("Your BMI is $bmi")
-                    if (bmi < 18.5) {
-                        Text("Underweight")
-                    } else if (bmi > 18.5 && bmi < 25) {
-                        Text("Healthy Weight")
-                    } else if (bmi > 25 && bmi < 30) {
-                        Text("Overweight")
-                    } else if (bmi > 30) {
-                        Text("Obesity")
+
+                if(bmi != null){
+                    //set the BMI to categories and add colors depending on them
+                    val(categoryText, categoryColor) = when{
+                        bmi < 16 -> "Severely Underweight" to redColor
+                        bmi in 16.0..16.9 -> "Underweight" to orangeColor
+                        bmi in  17.0..18.4 -> "Slightly Underweight" to yellowColor
+                        bmi in 18.5..24.9 -> "Healthy Weight" to greenColor
+                        bmi in 25.0..29.9 -> "Overweight" to yellowColor
+                        bmi in 30.0..34.9 -> "Obese (Class I)" to orangeColor
+                        else -> "Obese (Class II+)" to redColor
                     }
+                    Text("Your BMI is $bmi")
+                    Text(categoryText, color = categoryColor)
+
+                    //Box with the color depending the category
+                    Box(
+                        modifier = Modifier
+                            .size(70.dp)
+                            .padding(top = 8.dp)
+                            .background(categoryColor)
+                    )
+
                 }
+
             }
 
         }
