@@ -94,11 +94,22 @@ fun BMIScreen(){
                     Text(errorMessage!!, color = MaterialTheme.colorScheme.error)
                 }
 
+                val bmi = bmiResult?.toFloatOrNull()
                 //display BMI result
-                if(bmiResult!=null){
-                    Text("Your BMI is $bmiResult")
+                if(bmi!=null) {
+                    Text("Your BMI is $bmi")
+                    if (bmi < 18.5) {
+                        Text("Underweight")
+                    } else if (bmi > 18.5 && bmi < 25) {
+                        Text("Healthy Weight")
+                    } else if (bmi > 25 && bmi < 30) {
+                        Text("Overweight")
+                    } else if (bmi > 30) {
+                        Text("Obesity")
+                    }
                 }
             }
+
         }
     )
 }
