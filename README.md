@@ -35,7 +35,7 @@ Make sure you have the required dependencies installed. Sync Gradle if needed.
 Type your weight and height and get your body mass index.
 Depending on your BMI you'll get a textual interpretation on where your BMI lays on the BMI spectrum.
 
-##📱 Android Specs
+## 📱 Android Specs
 - Minimum Android Version: 7.0 (Nougat)
 - Target Android Version: Android 12 (API Level 35)
 - Android SDK: Android 12 (API Level 35)
